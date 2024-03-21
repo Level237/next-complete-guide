@@ -1,7 +1,16 @@
 import Image from "next/image";
+import {db} from '@/db'
+export default async function Home() {
+  const snippets=await db.snipped.findMany();
 
-export default function Home() {
+  const renderedSnippets=snippets.map((snipped)=>{
+    return (
+      <div key={snipped.id}>
+          {snipped.title}
+      </div>
+    )
+  })
   return (
-   <div>Homepage</div>
+   <div>{renderedSnippets}</div>
   );
 }
