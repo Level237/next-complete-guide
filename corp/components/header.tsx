@@ -13,6 +13,7 @@ export default function Header(){
             <Link href="/scale">Scale</Link>
             </div>
             
+            
           </nav>
        
         </div>
