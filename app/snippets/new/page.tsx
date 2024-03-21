@@ -1,5 +1,5 @@
 import { db } from '@/db';
-import { redirect } from 'next/navigation';
+import { redirect,notFound } from 'next/navigation';
 
 export default function SnippetCreatePage(){
 
@@ -21,6 +21,7 @@ export default function SnippetCreatePage(){
         //Redirect the user back to the root route
         redirect('/')
     }
+
     return (
         <form action={createSnipped}>
             <h3 className="font-bold m-3">Create a Snipped</h3>
