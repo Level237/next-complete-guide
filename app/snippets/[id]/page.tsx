@@ -1,8 +1,18 @@
-
-
-export default function SnippedShowPage(props:any){
-    console.log(props);
+import { db } from "@/db";
+import { notFound } from "next/navigation";
+interface SnippedShowPageProps{
+    params:{
+        id:string
+    }
+}
+export default async function SnippedShowPage(props:SnippedShowPageProps){
+    const snipped=await db.snipped.findFirst({
+        where:{id:parseInt(props.params.id)}
+    })
+    if(!snipped){
+        return notFound();
+    }
     return (
-        <div>Show a snipped</div>
+        <div>{snipped.title}</div>
     )
 }
