@@ -6,6 +6,9 @@ interface SnippedShowPageProps{
     }
 }
 export default async function SnippedShowPage(props:SnippedShowPageProps){
+    await new Promise((receive)=>{
+        setTimeout(receive,2000)
+    })
     const snipped=await db.snipped.findFirst({
         where:{id:parseInt(props.params.id)}
     })
