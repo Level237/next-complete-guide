@@ -17,7 +17,7 @@ export default async function SnippetEditPage(props:SnippedEditPageProps){
         return notFound()
     }
     return(
-        <div>
+        <div className="mt-40">
            <SnippedEditForm snippet={snipped}/>
         </div>
     )

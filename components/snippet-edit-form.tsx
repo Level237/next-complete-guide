@@ -16,7 +16,7 @@ export default function SnippedEditForm({snippet}:SnippetEditFormProps){
     }
     const editSnippetAction=actions.editSnippet.bind(null,snippet.id,code)
     return (
-        <div>
+        <div className="mt-40">
             <Editor
             height='40vh'
             theme="vs-dark"
