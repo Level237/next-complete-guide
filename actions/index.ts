@@ -18,11 +18,31 @@ export async function deleteSnippet(id:number){
 
     redirect('/')
 }
-export async function createSnipped(formState:{message:string},formData:FormData)
-{
+export async function createSnipped(formState:{message:string},formData:FormData){
   
-   return {
-    message:'title must be longer',
-   }
-   
+    //Check the user's input and make sure they're valid
+    const title=formData.get('title') ;
+    const code=formData.get('code');
+
+    if(typeof title !=='string' || title.length < 3){
+        return {
+            message:"Title must be longer"
+        }
+    }
+
+    if(typeof code !=="string" || code.length < 10){
+        return {
+            message:"code must be longer"
+        }
+    }
+    //Create a new record in the database
+    const snipped=await db.snipped.create({
+        data:{
+            title,
+            code
+        }
+    })
+    console.log(snipped);
+    //Redirect the user back to the root route
+    redirect('/')
 }
