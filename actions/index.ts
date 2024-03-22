@@ -21,6 +21,9 @@ export async function deleteSnippet(id:number){
 export async function createSnipped(formState:{message:string},formData:FormData){
   
     //Check the user's input and make sure they're valid
+    try{
+
+    
     const title=formData.get('title') ;
     const code=formData.get('code');
 
@@ -36,13 +39,28 @@ export async function createSnipped(formState:{message:string},formData:FormData
         }
     }
     //Create a new record in the database
-    const snipped=await db.snipped.create({
+   const snipped=await db.snipped.create({
         data:{
             title,
             code
         }
     })
-    console.log(snipped);
+    
+    //throw new Error('failed to save to database.')
+    
+}catch(error:unknown){
+    if(error instanceof Error){
+        return {
+            message:error.message
+        }
+    }else{
+        return{
+            message:'Something went wrong...'
+        }
+    }
+}
+   
+    
     //Redirect the user back to the root route
     redirect('/')
 }
