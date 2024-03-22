@@ -18,3 +18,11 @@ export async function deleteSnippet(id:number){
 
     redirect('/')
 }
+export async function createSnipped(formState:{message:string},formData:FormData)
+{
+  
+   return {
+    message:'title must be longer',
+   }
+   
+}
