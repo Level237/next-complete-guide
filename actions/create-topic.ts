@@ -9,9 +9,18 @@ const createTopicSchema=z.object({
         message:'Must be lowercase letters without spaces'
     }),
     description:z.string().min(10)
-
 });
-export async function createTopic(formState:number,formData:FormData){
+
+interface CreateTopicFormState{
+    errors:{
+        name?:string[];
+        description?:string[]
+    }
+}
+export async function createTopic(
+    formState:CreateTopicFormState,
+    formData:FormData
+    ):Promise<CreateTopicFormState>{
 
     const result=createTopicSchema.safeParse({
         name:formData.get('name'),
@@ -19,9 +28,13 @@ export async function createTopic(formState:number,formData:FormData){
     })
 
     if(!result.success){
-        console.log(result.error.flatten().fieldErrors);
+        return {
+            errors:result.error.flatten().fieldErrors
+           }
     }
-   return 10
+   return {
+    errors:{}
+   }
     // TODO:revalidate the homepage
    
 }
