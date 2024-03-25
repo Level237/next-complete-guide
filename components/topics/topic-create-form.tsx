@@ -26,8 +26,22 @@ export default function TopicCreateForm(){
                 <form action={action}>
                     <div className='flex flex-col gap-4 p-4 w-80'>
                     <h1 className='text-lg'>Create a Topic</h1>
-                    <Input name='name' label="name" labelPlacement='outside' placeholder='Name'/>
-                    <Textarea name='description' label="description" labelPlacement='outside' placeholder='Describe your topic'/>
+                    <Input 
+                    name='name' 
+                    label="name" 
+                    labelPlacement='outside' 
+                    placeholder='Name'
+                    isInvalid={!!formState.errors.name}
+                    errorMessage={formState.errors.name?.join(', ')}
+                    />
+                    <Textarea 
+                    name='description' 
+                    label="description" 
+                    labelPlacement='outside' 
+                    placeholder='Describe your topic'
+                    isInvalid={!!formState.errors.description}
+                    errorMessage={formState.errors.description?.join(', ')}
+                    />
                     <Button type='submit'>Submit</Button>
                     </div>
                 </form>
