@@ -9,6 +9,7 @@ import { db } from "@/db"
 import paths from "@/path"
 
 
+
 const createPostSchema=z.object({
     title:z.string().min(3),
     content:z.string().min(10)
@@ -59,7 +60,32 @@ export async function createPost(
             }
         }
       }
+      let post:Post;
+      try {
+        post=await db.post.create({
+            data:{
+                title:result.data.title,
+                content:result.data.content,
+                userId:session.user.id,
+                topicId:topic.id
+            }
+        })
+      } catch (error:unknown) {
+        if(error instanceof Error){
+            return {
+                errors:{
+                    _form:[error.message]
+                }
+            }
+        }else{
+            return{
+                errors:{
+                    _form:['Failed to create post']
+                }
+            }
+        }
+      }
     //TODO:revalidate the topic show page
-    revalidatePath('/')
-    redirect('')
+    revalidatePath(paths.topicShow(slug))
+    redirect(paths.postShow(slug,post.id))
 }
