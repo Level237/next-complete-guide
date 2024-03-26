@@ -14,9 +14,11 @@ import {
 
 import * as actions from "@/actions"
 import FormButton from '../common/form-button'
+import { error } from 'console'
 export default function PostCreateForm() {
 
   const [formState,action]=useFormState(actions.createPost,{errors:{}})
+
   return (
    <Popover placement='left'>
      <PopoverTrigger>
@@ -42,7 +44,7 @@ export default function PostCreateForm() {
                 labelPlacement='outside'
                 placeholder='Content'
                 />
-
+                {formState.errors._form ? <div className='rounded p-2 bg-red-200 border-red-400'>{formState.errors._form.join(', ')}</div> :null}
                 <FormButton>Create a Post</FormButton>
             </div>
         </form>

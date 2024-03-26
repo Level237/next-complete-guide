@@ -8,6 +8,7 @@ import {auth} from "@/auth"
 import { db } from "@/db"
 import paths from "@/path"
 
+
 const createPostSchema=z.object({
     title:z.string().min(3),
     content:z.string().min(10)
@@ -34,6 +35,14 @@ export async function createPost(
         if(!result.success){
             return{
                 errors:result.error.flatten().fieldErrors
+            }
+        }
+        const session=await auth();
+        if(!session|| !session.user){
+            return{
+                errors:{
+                    _form:['You must be signed in to this']
+                },
             }
         }
 
