@@ -1,27 +1,22 @@
-import Link from "next/link";
-import PostShow from "@/components/posts/post-show";
-import CommentList from "@/components/comments/comment-list";
-import CommentCreateForm from "@/components/comments/comment-create-form";
-import paths from "@/path";
+import { db } from "@/db";
+import { notFound } from "next/navigation";
 
-interface PostShowPageProps {
-  params: {
-    slug: string;
-    postId: string;
-  };
+interface PostShowProps {
+  postId:string
 }
 
-export default async function PostShowPage({ params }: PostShowPageProps) {
-  const { slug, postId } = params;
+export default async function PostShow({postId}: PostShowProps) {
+  const post=await db.post.findFirst({
+    where:{id:postId}
+  })
 
+  if(!post){
+    notFound()
+  }
   return (
-    <div className="space-y-3">
-      <Link className="underline decoration-solid" href={paths.topicShow(slug)}>
-        {"< "}Back to {slug}
-      </Link>
-      {/* <PostShow /> */}
-      {/* <CommentCreateForm postId={postId} startOpen /> */}
-      {/* <CommentList comments={comments} /> */}
+    <div className="m-4">
+      <h1 className="text-2xl font-bold my-2">{post.title}</h1>
+      <p className="p-4 border rounded">{post.content}</p>
     </div>
   );
 }
