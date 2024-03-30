@@ -55,9 +55,14 @@ export default function CommentCreateForm({
       </div>
     </form>
   );
+    let show:React.ReactNode;
 
+    if(postId!==parentId){
+        
+    }
   return (
     <div>
+     
       <Button size="sm" variant="light" onClick={() => setOpen(!open)}>
         Reply
       </Button>

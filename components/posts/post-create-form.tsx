@@ -14,7 +14,7 @@ import {
 
 import * as actions from "@/actions"
 import FormButton from '../common/form-button'
-import { error } from 'console'
+
 
 interface PostCreateFormProps{
   slug:string
